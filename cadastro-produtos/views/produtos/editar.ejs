@@ -30,6 +30,20 @@
 
     <br>
 
+    <label>Tipo:</label>
+    <select name="tipo" required>
+        <option value="Informática" <%= tipoSelecionado === 'Informática' ? 'selected' : '' %>>Informática</option>
+        <option value="Periféricos" <%= tipoSelecionado === 'Periféricos' ? 'selected' : '' %>>Periféricos</option>
+        <option value="Celulares" <%= tipoSelecionado === 'Celulares' ? 'selected' : '' %>>Celulares</option>
+        <option value="Audio" <%= tipoSelecionado === 'Audio' ? 'selected' : '' %>>Áudio</option>
+        <option value="Acessórios" <%= tipoSelecionado === 'Acessórios' ? 'selected' : '' %>>Acessórios</option>
+        <% categorias.filter(categoria => !['Informática', 'Periféricos', 'Celulares', 'Áudio', 'Acessórios'].includes(categoria.nome)).forEach(categoria => { %>
+            <option value="<%= categoria.nome %>" <%= tipoSelecionado === categoria.nome ? 'selected' : '' %>><%= categoria.nome %></option>
+        <% }) %>
+    </select>
+
+    <br>
+
     <button type="submit">
         Atualizar
     </button>

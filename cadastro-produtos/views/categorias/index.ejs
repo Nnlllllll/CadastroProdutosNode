@@ -1,0 +1,17 @@
+<h1>Categorias</h1>
+
+<form action="/categorias" method="POST">
+	<label for="nome">Nome da categoria:</label>
+	<input id="nome" type="text" name="nome" required>
+	<button type="submit">Cadastrar</button>
+</form>
+
+<h2>Categorias cadastradas</h2>
+
+<ul>
+	<% categorias.forEach(categoria => { %>
+		<li><%= categoria.nome %></li>
+	<% }) %>
+</ul>
+
+<a href="/produtos">Voltar para produtos</a>

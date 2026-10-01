@@ -17,6 +17,33 @@
 
     <br>
 
+    <label>Tipo:</label>
+    <select name="tipo" required>
+        <option value="">Selecione um tipo</option>
+        <option value="Informática">Informática</option>
+        <option value="Periféricos">Periféricos</option>
+        <option value="Celulares">Celulares</option>
+        <option value="Audio">Áudio</option>
+        <option value="Acessórios">Acessórios</option>
+        <% categorias
+            .filter(categoria => ![
+                'Informática',
+                'Periféricos',
+                'Celulares',
+                'Áudio',
+                'Acessórios'
+            ].includes(categoria.nome))
+            .forEach(categoria => { %>
+            <option value="<%= categoria.nome %>"><%= categoria.nome %></option>
+        <% }) %>
+    </select>
+
+    <br>
+
+    <a href="/categorias">Cadastrar categorias</a>
+
+    <br>
+
     <button type="submit">
         Salvar
     </button>

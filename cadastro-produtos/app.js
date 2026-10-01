@@ -6,13 +6,26 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var categoriasRouter = require('./routes/categorias');
 
 var app = express();
 
-const { sequelize } = require('./models');
-sequelize.sync();
+const { sequelize, Categoria } = require('./models');
+const categoriasIniciais = [
+  'Informática',
+  'Periféricos',
+  'Celulares',
+  'Áudio',
+  'Acessórios'
+];
+
+const bancoPronto = sequelize.sync({ alter: true }).then(async () => {
+  for (const nome of categoriasIniciais) {
+    await Categoria.findOrCreate({ where: { nome } });
+  }
+});
 const produtosRouter = require('./routes/produtos');
-app.use('/produtos', produtosRouter);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +37,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+  bancoPronto.then(() => next()).catch(next);
+});
+
 app.use('/', indexRouter);
+app.use('/categorias', categoriasRouter);
+app.use('/produtos', produtosRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

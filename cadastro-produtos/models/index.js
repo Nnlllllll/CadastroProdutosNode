@@ -23,7 +23,32 @@ const Produto = sequelize.define('Produto', {
   }
 });
 
+const Categoria = sequelize.define('Categoria', {
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  }
+});
+
+Categoria.hasMany(Produto, {
+  as: 'produtos',
+  foreignKey: {
+    name: 'categoriaId',
+    allowNull: true
+  }
+});
+
+Produto.belongsTo(Categoria, {
+  as: 'categoria',
+  foreignKey: {
+    name: 'categoriaId',
+    allowNull: true
+  }
+});
+
 module.exports = {
   sequelize,
-  Produto
+  Produto,
+  Categoria
 };

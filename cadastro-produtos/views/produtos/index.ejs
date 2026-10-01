@@ -7,6 +7,7 @@
         <th>Nome</th>
         <th>Preço</th>
         <th>Quantidade</th>
+        <th>Categoria</th>
         <th>Ações</th>
     </tr>
 
@@ -16,6 +17,7 @@
             <td><%= p.nome %></td>
             <td><%= p.preco %></td>
             <td><%= p.quantidade %></td>
+            <td><%= p.categoria ? p.categoria.nome : 'Sem categoria' %></td>
 
             <td>
                 <a href="/produtos/<%= p.id %>/editar">
